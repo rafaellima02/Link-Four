@@ -75,7 +75,7 @@
 		<div
 			class="track-wrap"
 			role="group"
-			aria-label="Carrossel: como jogar Link Four"
+			aria-label="Carousel: how to play Link Four"
 			ontouchstart={handleTouchStart}
 			ontouchend={handleTouchEnd}
 		>
@@ -85,8 +85,8 @@
 					<div class="eyebrow"><span class="dot"></span>LINK FOUR</div>
 					<h1 class="slide-title">Every Move <span class="accent-yellow">Counts</span></h1>
 					<p class="slide-text">
-						Um clássico de raciocínio: dois jogadores, um tabuleiro, quatro peças em linha decidem
-						tudo. Veja como jogar em poucos passos.
+						A reasoning classic: two players, a board, and four pieces in a row—that's all it
+						takes. See how to play in just a few steps.
 					</p>
 					<div class="visual">
 						<div class="mini-board">
@@ -115,14 +115,14 @@
 					</div>
 				</div>
 
-				<!-- SLIDE 2 — Sorteio (demonstração) -->
+				<!-- SLIDE 2 — Draw demo -->
 				<div class="slide">
-					<div class="eyebrow"><span class="dot"></span>PASSO 1</div>
-					<h1 class="slide-title">Sorteie quem <span class="accent-red">começa</span></h1>
+					<div class="eyebrow"><span class="dot"></span>Step 1</div>
+					<h1 class="slide-title">Draw who <span class="accent-red">goes first</span></h1>
 					<p class="slide-text">
-						Antes da partida, sorteia-se aleatoriamente qual cor abre a rodada —
-						<strong style="color: var(--red)">vermelho</strong> ou
-						<strong style="color: var(--yellow)">amarelo</strong>.
+						Before the match, a random draw decides which color opens the round —
+						<strong style="color: var(--red)">red</strong> or
+						<strong style="color: var(--yellow)">yellow</strong>.
 					</p>
 					<div class="visual draw-visual">
 						<div class="turn-row" class:settled={drawSettled}>
@@ -136,7 +136,7 @@
 									<div class="turn-avatar-inner red"></div>
 								</div>
 								<div class="turn-label" class:winner-label={drawSettled && drawWinner === 'red'}>
-									JOGADOR 1
+									PLAYER 1
 								</div>
 							</div>
 
@@ -152,16 +152,16 @@
 									<div class="turn-avatar-inner yellow"></div>
 								</div>
 								<div class="turn-label" class:winner-label={drawSettled && drawWinner === 'yellow'}>
-									JOGADOR 2
+									PLAYER 2
 								</div>
 							</div>
 						</div>
 
 						<p class="draw-result">
 							{#if drawSettled && drawWinner === 'red'}
-								<span class="red-txt">Vermelho</span> começa a partida!
+								<span class="red-txt">Red</span> goes first!
 							{:else if drawSettled && drawWinner === 'yellow'}
-								<span class="yellow-txt">Amarelo</span> começa a partida!
+								<span class="yellow-txt">Yellow</span> goes first!
 							{:else}
 								&nbsp;
 							{/if}
@@ -169,13 +169,13 @@
 					</div>
 				</div>
 
-				<!-- SLIDE 3 — Como jogar (drop) -->
+				<!-- SLIDE 3 — How to play (drop) -->
 				<div class="slide">
-					<div class="eyebrow"><span class="dot"></span>PASSO 2</div>
-					<h1 class="slide-title">Solte a peça em uma <span class="accent-yellow">coluna</span></h1>
+					<div class="eyebrow"><span class="dot"></span>Step 2</div>
+					<h1 class="slide-title">Drop your piece in a <span class="accent-yellow">column</span></h1>
 					<p class="slide-text">
-						Nos seus turnos, escolha uma coluna. A peça cai sozinha até ocupar a posição livre mais
-						baixa daquela coluna.
+						On your turn, pick a column. Your piece falls on its own until it lands on the
+						lowest open spot in that column.
 					</p>
 					<div class="visual">
 						<div class="drop-demo">
@@ -204,12 +204,12 @@
 					</div>
 				</div>
 
-				<!-- SLIDE 4 — Formas de vencer -->
+				<!-- SLIDE 4 — Ways to win -->
 				<div class="slide">
-					<div class="eyebrow"><span class="dot"></span>PASSO 3</div>
-					<h1 class="slide-title">4 formas de <span class="accent-red">vencer</span></h1>
+					<div class="eyebrow"><span class="dot"></span>Step 3</div>
+					<h1 class="slide-title">4 ways to <span class="accent-red">win</span></h1>
 					<p class="slide-text">
-						Conecte 4 peças da sua cor em qualquer uma destas direções para ganhar a rodada.
+						Connect 4 pieces of your color in any of these directions to win the round.
 					</p>
 					<div class="visual">
 						<div class="win-grid">
@@ -295,13 +295,13 @@
 					</div>
 				</div>
 
-				<!-- SLIDE 5 — Empate / Fim -->
+				<!-- SLIDE 5 — Draw / End -->
 				<div class="slide">
-					<div class="eyebrow"><span class="dot"></span>PASSO 4</div>
-					<h1 class="slide-title">Empate ou <span class="accent-yellow">desistência</span></h1>
+					<div class="eyebrow"><span class="dot"></span>Step 4</div>
+					<h1 class="slide-title">Draw or <span class="accent-yellow">forfeit</span></h1>
 					<p class="slide-text">
-						Se o tabuleiro encher sem ninguém completar 4 peças em linha, o jogo termina empatado.
-						Um jogador também pode desistir na sua vez, dando a vitória ao adversário.
+						If the board fills up with no one connecting 4 in a row, the game ends in a draw.
+						A player can also forfeit on their turn, handing the win to their opponent.
 					</p>
 					<div class="visual end-visual">
 						<div class="mini-board">
@@ -325,8 +325,8 @@
 							</div>
 						</div>
 						<div class="end-badges">
-							<div class="end-badge">EMPATE</div>
-							<div class="end-badge">DESISTÊNCIA</div>
+							<div class="end-badge">DRAW</div>
+							<div class="end-badge">FORFEIT</div>
 						</div>
 					</div>
 				</div>
@@ -337,7 +337,7 @@
 			<button
 				type="button"
 				class="nav-btn"
-				aria-label="Anterior"
+				aria-label="Previous"
 				disabled={current === 0}
 				onclick={() => goTo(current - 1)}
 			>
@@ -351,7 +351,7 @@
 						class="dot-btn"
 						class:alt={i % 2 === 1}
 						class:active={i === current}
-						aria-label={`Ir para o passo ${i + 1}`}
+						aria-label={`Go to step ${i + 1}`}
 						onclick={() => goTo(i)}
 					></button>
 				{/each}
@@ -360,7 +360,7 @@
 			<button
 				type="button"
 				class="nav-btn"
-				aria-label="Próximo"
+				aria-label="Next"
 				disabled={current === TOTAL_SLIDES - 1}
 				onclick={() => goTo(current + 1)}
 			>

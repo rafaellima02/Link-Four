@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap');
+
 /* Reset geral: zera espaçamentos padrão do navegador e define a fonte usada em toda a tela */
 * {
 	margin: 0;
@@ -61,8 +63,11 @@
 }
 
 /* Botão de instruções, no canto superior direito */
+/* z-index maior que o overlay do sorteio (90), pra ficar acessível mesmo com o sorteio aberto na tela.
+   A logo (que volta pra tela inicial) não recebe esse destaque de propósito, e continua bloqueada nesse momento. */
 .btn-home {
 	position: relative;
+	z-index: 95;
 	display: flex;
 	align-items: center;
 	gap: 0.5vw;

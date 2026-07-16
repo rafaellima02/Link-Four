@@ -202,7 +202,7 @@ body::after {
   /* FIX: centralizado na área restante após a sidebar */
   margin-left: 32vw;
   margin-right: auto;
-  margin-top: -4.4vw;
+  margin-top: -5.5vw;
   gap: 1rem;
   width: calc(100% - 18vw);
   max-width: 760px;
@@ -219,6 +219,8 @@ body::after {
     0 4px 0 rgba(0, 0, 0, 0.25),
     0 0.5em 1.2em rgba(0, 0, 0, 0.35);
   position: relative;
+  margin-top: 2vw;
+  margin-bottom:-7px;
 }
 
 /* Meet the team */
@@ -235,6 +237,9 @@ body::after {
     0 4px 0 rgba(0, 0, 0, 0.25),
     0 0.5em 1.2em rgba(0, 0, 0, 0.35);
   position: relative;
+  margin-bottom:1px;
+  left:0.5rem;
+  
 }
 
 /* Texto descritivo abaixo do título "Meet the team" (não usado hoje) */

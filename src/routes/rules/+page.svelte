@@ -5,6 +5,9 @@
   // Css com as animações de entrada/saída de tela (popIn/popOut)
   import '../../../static/animation.css';
 
+  // Botão único de voltar, compartilhado com a tela de créditos
+  import BackButton from '$lib/component/ButtonBack.svelte';
+
   // Controla a animação de saída da tela, igual usado na tela do jogo
   import { createExitAnimation } from '$lib/utils';
   const { animateExit, isExiting } = createExitAnimation();
@@ -36,21 +39,18 @@
 
     <nav id="NAV__prime0" class="animate" class:closing={$isExiting}>
       <div id="DV_home_prime0">
-        <button class="btn-voltar" onclick={goBack}>
-          <img src="/icons/arrow.png" alt="logo" />
-          BACK
-        </button>
+        <BackButton onclick={goBack} />
       </div>
     </nav>
 
     <div class="titulo animate" class:closing={$isExiting}>
-      <h1>Rules of</h1>
+      <h1>About of</h1>
       <h2>Game</h2>
     </div>
 
     <div id="DV_regras_e_creditos" class="animate" class:closing={$isExiting}>
       <button class="A_regras_e_creditos" onclick={handleRules}>
-        RULES
+        About
       </button>
 
       <button class="A_regras_e_creditos" onclick={goCredits}>

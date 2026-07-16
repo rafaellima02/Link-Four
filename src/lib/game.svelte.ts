@@ -83,6 +83,8 @@ class ConnectFourGame {
 	isDropping = $state(false);
 	// Guarda a última jogada mesmo depois da animação terminar, pra tela poder saber onde a peça caiu
 	lastMove = $state<LastMove | null>(null);
+	// Trava a partida até o sorteio de quem começa ser resolvido (fica false até o modal de sorteio liberar)
+	readyToPlay = $state(false);
 
 	// Verifica se a partida já acabou (não está mais no status "jogando")
 	isGameOver(): boolean {
@@ -99,15 +101,30 @@ class ConnectFourGame {
 		return 420 + row * 60;
 	}
 
-	// Só pode desistir quem está com a vez e enquanto o jogo não tiver acabado
+	// Calcula em qual linha a peça vai parar se for jogada nessa coluna, sem jogar de verdade.
+	// Usado pra mostrar a "sombra" de preview ao passar o mouse. Retorna null se a coluna estiver cheia.
+	dropRow(col: number): number | null {
+		for (let r = ROWS - 1; r >= 0; r--) {
+			if (this.board[r][col] === 0) return r;
+		}
+		return null;
+	}
+
+	// Só pode desistir quem está com a vez, enquanto o jogo não tiver acabado e o sorteio já tiver sido feito
 	canForfeit(player: Player): boolean {
-		return !this.isGameOver() && this.currentPlayer === player;
+		return this.readyToPlay && !this.isGameOver() && this.currentPlayer === player;
+	}
+
+	// Resolve o sorteio obrigatório de início de partida: define quem começa jogando e libera o tabuleiro
+	beginMatch(startingPlayer: Player): void {
+		this.currentPlayer = startingPlayer;
+		this.readyToPlay = true;
 	}
 
 	// Faz a jogada: solta uma peça na coluna escolhida
 	play(col: number): void {
-		// Não deixa jogar se já tiver uma peça caindo ou se o jogo já acabou
-		if (this.isDropping || this.isGameOver()) return;
+		// Não deixa jogar antes do sorteio, se já tiver uma peça caindo, ou se o jogo já acabou
+		if (!this.readyToPlay || this.isDropping || this.isGameOver()) return;
 		// Não deixa jogar em coluna cheia
 		if (this.isColumnFull(col)) return;
 
@@ -169,6 +186,7 @@ class ConnectFourGame {
 	}
 
 	// Reinicia a partida: limpa o tabuleiro e volta tudo pro estado inicial (mantém o placar)
+	// Exige um novo sorteio antes da próxima partida começar
 	restart(): void {
 		this.board = createEmptyBoard();
 		this.currentPlayer = 1;
@@ -176,6 +194,7 @@ class ConnectFourGame {
 		this.winner = null;
 		this.isDropping = false;
 		this.lastMove = null;
+		this.readyToPlay = false;
 	}
 }
 

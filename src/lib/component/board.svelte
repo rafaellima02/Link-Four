@@ -13,6 +13,25 @@
 
 	// A peça "caindo" só existe enquanto isDropping for true (senão fica null)
 	const fallingPiece = $derived(game.isDropping ? game.lastMove : null);
+
+	// Qual coluna o mouse está sobrevoando agora (null = nenhuma)
+	let hoveredCol = $state<number | null>(null);
+
+	// Só mostra o preview se der pra jogar de verdade agora (sorteio feito, sem peça caindo, jogo não acabou)
+	const canPreview = $derived(game.readyToPlay && !game.isDropping && !game.isGameOver());
+
+	// Em qual linha a peça cairia se você clicasse agora na coluna sobrevoada (null = coluna cheia ou sem hover)
+	const previewRow = $derived(
+		canPreview && hoveredCol !== null ? game.dropRow(hoveredCol) : null
+	);
+
+	function handleColumnEnter(colIndex: number): void {
+		hoveredCol = colIndex;
+	}
+
+	function handleColumnLeave(colIndex: number): void {
+		if (hoveredCol === colIndex) hoveredCol = null;
+	}
 </script>
 
 <div class="board-shell animate" class:closing={$isExitingStore}>
@@ -44,6 +63,22 @@
 				`}
 			></div>
 		{/if}
+
+		{#if hoveredCol !== null && previewRow !== null}
+			<!-- Sombra na coluna inteira, indicando qual coluna vai receber a peça -->
+			<div
+				class="column-shadow"
+				style={`--col: ${hoveredCol};`}
+			></div>
+
+			<!-- Peça-fantasma exatamente na lacuna onde a peça vai parar -->
+			<div
+				class="ghost-piece"
+				class:piece-red={game.currentPlayer === 1}
+				class:piece-yellow={game.currentPlayer === 2}
+				style={`--col: ${hoveredCol}; --end-row: ${previewRow};`}
+			></div>
+		{/if}
 	</div>
 
 	<div class="column-overlay">
@@ -54,6 +89,10 @@
 				class="column-button"
 				aria-label={`Drop piece in column ${colIndex + 1}`}
 				disabled={game.isDropping || game.isGameOver() || game.isColumnFull(colIndex)}
+				onmouseenter={() => handleColumnEnter(colIndex)}
+				onmouseleave={() => handleColumnLeave(colIndex)}
+				onfocus={() => handleColumnEnter(colIndex)}
+				onblur={() => handleColumnLeave(colIndex)}
 				onclick={() => game.play(colIndex)}
 			></button>
 		{/each}
@@ -103,7 +142,8 @@
 
 	/* Estilo da bolinha (tanto a parada quanto a que tá caindo) */
 	.piece,
-	.falling-piece {
+	.falling-piece,
+	.ghost-piece {
 		border-radius: 100%;
 		box-shadow:
 			inset 1px 1px 2px 0px rgba(255, 255, 255, 0.45),
@@ -152,10 +192,59 @@
 		}
 	}
 
+	/* Sombra que preenche a coluna inteira sob o mouse, indicando por onde a peça vai passar */
+	.column-shadow {
+		position: absolute;
+		z-index: 1;
+		top: var(--board-padding);
+		bottom: var(--board-padding);
+		width: var(--cell-size);
+		left: calc(var(--board-padding) + var(--col) * (var(--cell-size) + var(--col-gap)));
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+		border-radius: 999px;
+		pointer-events: none;
+		animation: shadow-fade-in 0.15s ease-out;
+	}
+
+	@keyframes shadow-fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	/* Peça-fantasma: mostra, translúcida, exatamente onde a peça real vai parar */
+	.ghost-piece {
+		position: absolute;
+		z-index: 2;
+		width: var(--cell-size);
+		height: var(--cell-size);
+		left: calc(var(--board-padding) + var(--col) * (var(--cell-size) + var(--col-gap)));
+		top: calc(var(--board-padding) + var(--end-row) * (var(--cell-size) + var(--row-gap)));
+		opacity: 0.45;
+		pointer-events: none;
+		animation:
+			shadow-fade-in 0.15s ease-out,
+			ghost-pulse 1.1s ease-in-out infinite;
+	}
+
+	@keyframes ghost-pulse {
+		0%,
+		100% {
+			opacity: 0.35;
+		}
+		50% {
+			opacity: 0.55;
+		}
+	}
+
 	/* Camada transparente com um botão por coluna, por cima do tabuleiro, pra capturar o clique */
 	.column-overlay {
 		position: absolute;
 		inset: 0;
+		z-index: 6;
 		display: flex;
 		gap: 0.5rem;
 		padding: 1rem;
@@ -173,5 +262,15 @@
 	/* Coluna cheia ou jogo travado: mostra que não dá pra clicar ali */
 	.column-button:disabled {
 		cursor: not-allowed;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ghost-piece {
+			animation: none;
+			opacity: 0.45;
+		}
+		.column-shadow {
+			animation: none;
+		}
 	}
 </style>

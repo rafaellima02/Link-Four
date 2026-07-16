@@ -3,6 +3,8 @@
 	import '../../../static/game.css';
 	import '../../../static/animation.css';
 
+	
+
 	// Imagens usadas na tela
 	import logo from '$lib/assets/Component 15.png';
 
@@ -10,6 +12,7 @@
 	import Board from '$lib/component/board.svelte';
 	import AvatarPlayer from '$lib/component/AvatarPlayer.svelte';
 	import TutorialModal from '$lib/component/HowToPlayCarousel.svelte';
+	import StartDrawModal from '$lib/component/StartDrawModal.svelte';
 
 	// Ícones dos botões
 	import restart from '$lib/assets/Restart.svg';
@@ -67,6 +70,7 @@
 
 	// Monta a mensagem certa pra mostrar na barra de vez e no modal de resultado
 	const turnMessage = $derived.by(() => {
+		if (!game.readyToPlay) return 'Sorteando quem começa...';
 		if (game.status === 'won') return `Player ${game.winner} Won!`;
 		if (game.status === 'forfeited') return `Player ${game.winner} Won by Forfeit!`;
 		if (game.status === 'draw') return "It's a Draw!";
@@ -74,6 +78,7 @@
 	});
 
 	// Reinicia a partida e garante que o modal de resultado feche junto, sem animação de saída
+	// O game.restart() já zera o readyToPlay, então o sorteio obrigatório volta a aparecer sozinho
 	function handleRestart() {
 		game.restart();
 		resultModalOpen = false;
@@ -99,6 +104,7 @@
 				</a>
 			</div>
 
+			<!-- Fica clicável mesmo com o sorteio obrigatório na tela (z-index maior que o overlay do sorteio) -->
 			<button onclick={openModal} class="btn-home animate" class:closing={$isExiting}>
 				<span>Instructions</span>
 			</button>
@@ -180,7 +186,7 @@
 		</section>
 	</div>
 
-	<!-- Os dois modais são mutuamente exclusivos: só um overlay fica na tela por vez. -->
+	<!-- Os dois modais abaixo são mutuamente exclusivos: só um overlay fica na tela por vez. -->
 	<!-- O de instruções tem prioridade; se o resultado ficar pendente, ele aparece assim que o de instruções fechar. -->
 	{#if modalOpen}
 		<div class="modal-overlay" onclick={closeModal}>
@@ -205,5 +211,11 @@
 				</p>
 			</div>
 		</div>
+	{/if}
+
+	<!-- Sorteio obrigatório de quem começa: fica de fora da cadeia acima de propósito, -->
+	<!-- pra poder aparecer junto com o modal de Instruções sem se fecharem um ao outro -->
+	{#if !game.readyToPlay}
+		<StartDrawModal />
 	{/if}
 </main>

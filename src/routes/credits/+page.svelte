@@ -2,6 +2,9 @@
   // Css com as animações de entrada/saída de tela (popIn/popOut)
   import '../../../static/animation.css';
 
+  // Botão único de voltar, compartilhado com a tela de rules
+  import BackButton from '$lib/component/ButtonBack.svelte';
+
   // Controla a animação de saída da tela, igual usado na tela do jogo
   import { createExitAnimation } from '$lib/utils';
   const { animateExit, isExiting } = createExitAnimation();
@@ -18,11 +21,11 @@
 
   // Lista dos integrantes do grupo, mostrada na tela
   const team = [
-    { name: 'Caio Santanna',     role: 'Designer',  icon: 'fa-brands fa-figma' },
-    { name: 'João Ibson',        role: 'Designer',  icon: 'fa-brands fa-figma' },
-    { name: 'Guilherme Santos',  role: 'Developer', icon: 'fa-solid fa-code' },
-    { name: 'Daniel Henrique',   role: 'Developer', icon: 'fa-solid fa-code' },
-    { name: 'Rafael Lima',       role: 'Developer', icon: 'fa-solid fa-code' }
+    { name: 'Caio Victor Santana de Souza',     role: 'Designer',  icon: 'fa-brands fa-figma' },
+    { name: 'João Ibson Lima',        role: 'Designer',  icon: 'fa-brands fa-figma' },
+    { name: 'Guilherme Santos de Oliveira',  role: 'Developer', icon: 'fa-solid fa-code' },
+    { name: 'Daniel Henrique Pereira Paiva',   role: 'Developer', icon: 'fa-solid fa-code' },
+    { name: 'Rafael Lima Gonaçalves da Silva',       role: 'Developer', icon: 'fa-solid fa-code' }
   ];
 
   // Lista das tecnologias usadas no projeto, mostrada na tela
@@ -47,16 +50,13 @@
   <!-- Barra de navegação -->
   <nav id="NAV__prime0" class="animate" class:closing={$isExiting}>
       <div id="DV_home_prime0">
-        <button class="btn-voltar" onclick={goBack}>
-          <img src="/icons/arrow.png" alt="logo" />
-          BACK
-        </button>
+        <BackButton onclick={goBack} />
       </div>
     </nav>
 
   <!-- Menu lateral -->
   <div class="credits-sidebar animate" class:closing={$isExiting}>
-    <button class="btn-credits-active" onclick={goRules}>RULES</button>
+    <button class="btn-credits-active" onclick={goRules}>About</button>
     <!-- CREDITS já é a aba ativa nessa tela, então não navega pra lugar nenhum -->
     <button class="btn-credits-active">CREDITS</button>
   </div>
