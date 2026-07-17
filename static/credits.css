@@ -38,7 +38,7 @@ body::after {
   pointer-events: none;
 }
 
-/* ── PAGE WRAPPER ── */
+/*PAGE WRAPPER*/
 .credits-page {
   position: relative;
   z-index: 2;
@@ -365,7 +365,7 @@ body::after {
   color: #2cb9ff;
 }
 
-/* ── TECHNOLOGIES ── */
+/* TECNOLOGIAS*/
 .tech-title {
   font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;

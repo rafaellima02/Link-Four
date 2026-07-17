@@ -37,7 +37,7 @@ a {
   text-decoration: none;
 }
 
-/* ── PAGE WRAPPER ── */
+/*  PAGE WRAPPER  */
 .home {
   position: relative;
   z-index: 2;
@@ -54,7 +54,7 @@ a {
   position: relative;
 }
 
-/* ── NAV ── */
+/*  NAV  */
 #NAV__prime0 {
   display: flex;
   justify-content: flex-start;
@@ -97,7 +97,7 @@ a {
 
 
 
-/* ── TÍTULO ── */
+/*  TÍTULO  */
 .titulo {
   text-align: center;
   margin-top: -3rem;
@@ -128,7 +128,7 @@ a {
   z-index: 2;
 }
 
-/* ── SECTION PRINCIPAL ── */
+/* SECTION PRINCIPAL  */
 #SEC_prime0 {
   display: flex;
   justify-content: center;
@@ -139,7 +139,7 @@ a {
   flex: 1;
 }
 
-/* ── COLUNA CENTRAL ── */
+/*  COLUNA CENTRAL  */
 .center-col {
   display: flex;
   flex-direction: column;
@@ -150,7 +150,7 @@ a {
   box-sizing: border-box;
 }
 
-/* ── BOTÕES REGRAS / CRÉDITOS ── */
+/*  BOTÕES REGRAS / CRÉDITOS  */
 #DV_regras_e_creditos {
   position: absolute;
   left: 5vw;
@@ -200,7 +200,7 @@ a {
   filter: brightness(0.95);
 }
 
-/* ── CARD PRINCIPAL ── */
+/*  CARD PRINCIPAL */
 img {
   max-width: 73%;
   max-height: 73%;
@@ -235,7 +235,7 @@ img {
   margin-top: -20px;
 }
 
-/* ── ÁREA DE TEXTO ── */
+/* ÁREA DE TEXTO  */
 .card-text {
   flex: 1;
   min-width: 0;
@@ -280,7 +280,7 @@ img {
   font-weight: 700;
 }
 
-/* ── PILLARS ── */
+/*  PILLARS  */
 .pillars {
   width: 100%;
   box-sizing: border-box;
